@@ -15,7 +15,7 @@ Created on 2022.04.24
 
 Author: Kirsten Chen
 
-Last changed: 2022.06.30
+Last changed: 2022.09.14
 """
 
 import pandas as pd
@@ -60,12 +60,12 @@ def fit_single_peptide(d):
 
 
     ## Rate constant
-    kd = mdf.params['Day']
+    kd = -mdf.params['Day']
     kd_pval = mdf.pvalues['Day']
     
     
     ## Half life based on the degradation rate
-    hl = (np.log(2)/(-kd)) if kd < 0 else np.nan
+    hl = (np.log(2)/(kd)) if kd > 0 else np.nan
     
     
     return pd.DataFrame({'Kd':kd, 'Kd_pvalue': kd_pval,
