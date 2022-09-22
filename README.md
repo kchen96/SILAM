@@ -6,6 +6,8 @@ Project: SILAM
 
 Pipeline:
 
+	0	Normalization:  Normalize the MS area based on the long-lived proteins
+	
 	1	Fit_peptide1.py:  Scale peptides from 0 to 1, fit the decay of each peptide R^2
 	
 	2	Fit_peptide2.py:  Based on the R^2, filter for “good” peptides (I set the cutoff as 0.6) and scale each peptide from 0 to 1
@@ -15,10 +17,12 @@ Pipeline:
 	4	Fit_peptide4.py:  Use mixed linear model to analyze the effects of oxygen on the degradation rate constant from the peptide-level data
 
 
-Input data: Peptide mass spec readout, normalized based on long-lived proteins.
+Input data: Peptide mass spec readout (DIA-NN output), normalized based on long-lived proteins.
 
 Output data:
 
+    0. Peptide mass spec readout (DIA-NN output), normalized based on long-lived proteins.
+    
     1. Results of single peptide fitting.
     
     2. Filtered peptides based on the R2.
@@ -34,4 +38,4 @@ Created on 2022.04.24
 
 Author: Kirsten Chen
 
-Last changed: 2022.09.14
+Last changed: 2022.09.22
