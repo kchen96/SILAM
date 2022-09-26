@@ -16,7 +16,7 @@ Created on 2022.04.24
 
 Author: Kirsten Chen
 
-Last changed: 2022.07.22
+Last changed: 2022.09.24
 """
 
 import pandas as pd
@@ -56,10 +56,10 @@ def fit_single_peptide(d, protein_level = True):
     ## fit
     result = sm.OLS(y, x).fit()
     ## Calculate the slope (degradation rate), standard error of the slope
-    kd = result.params[0]
+    kd = -result.params[0]
     bse = result.bse[0]
     ## Half life based on the degradation rate
-    hl = (np.log(2)/(-kd)) if kd != 0 else np.nan
+    hl = (np.log(2)/(kd)) if kd > 0 else np.nan
     
     
     return pd.Series({'R2': result.rsquared,'Kd': kd, 'Kd_SE': bse,

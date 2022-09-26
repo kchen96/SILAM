@@ -20,7 +20,7 @@ Created on 2022.04.24
 
 Author: Kirsten Chen
 
-Last changed: 2022.06.09
+Last changed: 2022.09.24
 """
 
 import pandas as pd
@@ -39,7 +39,7 @@ ddf = dd.from_pandas(df, npartitions=32)
 
 
 fit1 = pd.read_csv('peptide_fit_rsquareddata.csv')
-fit1 = dd.from_pandas(fit1[['Modified.Sequence','Oxygen','R2','ymax']], npartitions=32) ## only these 4 columns are useful
+fit1 = dd.from_pandas(fit1[['Modified.Sequence','Oxygen','Kd','R2','ymax']], npartitions=32) ## only these 4 columns are useful
 
 
 
@@ -63,8 +63,11 @@ ddf3 = ddf3.merge(ff3, how = 'left', on =['Modified.Sequence'])
 
 ## Filter
 ddf1 = ddf1[ddf1['R2'] > R2_cutoff]
+ddf1 = ddf1[ddf1['Kd'] > 0]
 ddf2 = ddf2[ddf2['R2'] > R2_cutoff]
+ddf2 = ddf2[ddf2['Kd'] > 0]
 ddf3 = ddf3[ddf3['R2'] > R2_cutoff]
+ddf3 = ddf3[ddf3['Kd'] > 0]
 
 ## Calculate scaled y
 ddf1['scaled_value'] = ddf1['value']/ddf1['ymax']
