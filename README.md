@@ -16,12 +16,9 @@ Analysis pipeline:
 
 3. **Scaling data**: The normalized abundance was divided by the median abundance at time 0 of the labeling to calculate the fraction of unlabeled peptides at each time point. This way, the median value for time 0 will be 1, and the scaled value of peptides should be between 0 and 1.
 
-4. ** Initial fitting**: Next, a preliminary fitting was performed to filter peptides with good linear correlations using the OLS function from the python (v3.11) statsmodels package (v0.13.5). Each peptide for a given condition was fit into the first-order kinetic model using the ordinary linear model (x = time. y = ln(scaled_value)). 
+4. **Initial fitting**: Next, a preliminary fitting was performed to filter peptides with good linear correlations using the OLS function from the python (v3.11) statsmodels package (v0.13.5). Each peptide for a given condition was fit into the first-order kinetic model using the ordinary linear model (x = time. y = ln(scaled_value)). 
  
-5. **Filter peptides**: The goodness of fitting was assessed by r2. 
-	r2 > 0.65
-	Peptides are detected in more than 5 samples in a given condition 
-	Peptides are detected in at least 1 sample at day 0
+5. **Filter peptides**: The goodness of fitting was assessed by r2. (1) r2 > 0.65. (2) Peptides are detected in more than 5 samples in a given condition. (3) Peptides are detected in at least 1 sample at day 0
 	
 6. **Calculate the Kd for each protein at each oxygen tension**: To calculate the Kd for each protein, a linear mixed effects model was applied using the mixedlm function from the python (v3.11) statsmodels package (v0.13.5). For each oxygen condition and each tissue, time was set as the fixed variable, and to account for the variability of different peptides for a given protein, the peptides were set as the random variable. Kd values with p-values less than 0.20 were reported. Protein half-lives (t1/2) were calculated based on 
 t_(1/2)=(ln⁡(2))/K_d 
